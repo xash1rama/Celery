@@ -23,6 +23,7 @@ def blur():
 @app.route('/status/<group_id>', methods=['GET'])
 def get_group_status(group_id: str):
    result = celery.GroupResult.restore(group_id)
+
    if result:
        status = (f"{result.completed_count()} / {len(result)} - {result.completed_count() / len(result) * 100} %")
        return jsonify({'status':  status}), 200
